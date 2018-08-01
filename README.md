@@ -23,7 +23,7 @@ Or install it yourself as:
 Add this line to your `Capfile`:
 
 ```ruby
-require 'capslack'
+require 'capslack', require: false
 ```
 
 Setup in `config/deploy.rb`. Example:
