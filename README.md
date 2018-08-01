@@ -1,8 +1,6 @@
 # Capslack
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/capslack`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Send notification message to your Slack channel about your Rails Capistrano deployment via Slack webhook.
 
 ## Installation
 
@@ -22,17 +20,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add this line to your `Capfile`:
 
-## Development
+```ruby
+require 'capslack'
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Setup in `config/deploy.rb`. Example:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
+set :slack_config, {
+  web_hook: 'https://hooks.slack.com/services/mMg3G3EHP/FqgP4hUR3/uvkJbkYCXm9ALVn7UT3M6u',
+  app_name: 'APP_NAME',
+  channel: 'SLACK_CHANNEL_NAME'
+}
+
+before 'deploy:updating', 'slack:notify:starting_to_deploy' do
+  Rake::Task['slack:notify'].invoke('Starting to deploy', false)
+end
+
+after 'deploy:finishing', 'slack:notify:deployment_finished' do
+  Rake::Task['slack:notify'].invoke('Deployment finished', true)
+end
+
+after 'sidekiq:stop', 'slack:notify:sidekiq_stop' do
+  Rake::Task['slack:notify'].invoke('Sidekiq stopped', false)
+end
+
+after 'sidekiq:start', 'slack:notify:sidekiq_start' do
+  Rake::Task['slack:notify'].invoke('Sidekiq started', false)
+end
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/capslack.
+Bug reports and pull requests are welcome on GitHub at https://github.com/flanker/capslack.
 
 ## License
 
