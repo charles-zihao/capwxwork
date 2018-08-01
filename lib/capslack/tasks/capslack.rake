@@ -1,4 +1,4 @@
-namespace :capslack do
+namespace :slack do
 
   def post_to_slack message, full_format: false
     require 'net/http'
