@@ -28,7 +28,7 @@ require 'capslack', require: false
 
 Setup in `config/deploy.rb`. Example:
 
-```
+```ruby
 set :slack_config, {
   web_hook: 'https://hooks.slack.com/services/mMg3G3EHP/FqgP4hUR3/uvkJbkYCXm9ALVn7UT3M6u',
   app_name: 'APP_NAME',
