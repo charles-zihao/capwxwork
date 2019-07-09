@@ -1,5 +1,5 @@
 require 'bundler/setup'
-require 'capslack'
+require 'capwxwork'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
