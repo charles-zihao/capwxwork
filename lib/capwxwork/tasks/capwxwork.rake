@@ -14,7 +14,7 @@ namespace :wxwork do
       msgtype: 'text',
       text:
         {
-          content: "test"
+          content: "#{message}"
         }
       # channel: wxwork_config[:channel],
       # icon_emoji: ':rocket:',
