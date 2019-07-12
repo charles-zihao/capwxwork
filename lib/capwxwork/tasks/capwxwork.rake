@@ -11,10 +11,10 @@ namespace :wxwork do
 
     uri = URI(wxwork_config[:web_hook])
     content = <<-MARKDOWN
-    <font color="info">#{message}</font>
-    >App Name: <font color="warning">#{app_name}</font>
-    >Environment: <font color="warning">#{stage}</font>
-    >Branch: <font color="warning">#{branch}</font>
+    <font color="comment">#{message}</font>
+    >App Name: <font color="info">#{app_name}</font>
+    >Environment: <font color="info">#{stage}</font>
+    >Branch: <font color="info">#{branch}</font>
     MARKDOWN
     payload = {
       'msgtype' => 'markdown',
