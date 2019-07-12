@@ -44,7 +44,6 @@ namespace :wxwork do
     #   request.body = JSON.generate payload
     #   http.request request
     Net::HTTP.post_form(uri, payload)
-    end
   end
 
   desc 'Send message to wxwork'
