@@ -7,6 +7,7 @@ namespace :wxwork do
 
     stage = fetch(:stage)
     branch = fetch(:branch)
+    app_name = fetch(:application)
     wxwork_config = fetch(:wxwork_config)
 
     uri = URI(wxwork_config[:web_hook])
@@ -14,17 +15,8 @@ namespace :wxwork do
       msgtype: 'text',
       text:
         {
-          content: "#{message}"
+          content: "#{app_name}:#{message}"
         }
-      # channel: wxwork_config[:channel],
-      # icon_emoji: ':rocket:',
-      # username: 'Capistrano',
-      # pretty:1
-      #     workwx_url = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5d603cc1-ec59-4fe7-9941-fc5575639624'
-      #     weixin = {msgtype: 'text', text: {content: output }}.to_json
-      #     RestClient.post(workwx_url, weixin, content_type: 'application/json')
-    }
-
     # message_with_app_name = "*[#{wxwork_config[:app_name]}]*: #{message}"
     #
     # if full_format
