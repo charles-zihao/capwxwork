@@ -41,7 +41,7 @@ namespace :wxwork do
       request = Net::HTTP::Post.new uri.request_uri
       request.add_field('Content-Type', 'application/json')
       request.add_field('Accept', 'application/json')
-      request.body = payload
+      request.body = payload.to_json
       http.request request
     end
   end
