@@ -1,6 +1,5 @@
 namespace :wxwork do
-
-  def post_to_wxwork message, full_format: false
+  def post_to_wxwork(message, full_format: false)
     require 'net/http'
     require 'openssl'
     require 'json'
@@ -15,10 +14,12 @@ namespace :wxwork do
       msgtype: 'markdown',
       markdown:
         {
-          content: "<font color=\"info\">#{message}</font>\n
-                  >App Name: <font color=\"warning\">#{app_name}</font>\n
-                  >Environment: <font color=\"warning\">#{stage}</font>\n
-                  >Branch: <font color=\"warning\">#{branch}</font>"
+          content: <<-MARKDOWN
+  <font color="info">#{message}</font>\n
+    >App Name: <font color="warning">#{app_name}</font>\n
+    >Environment: <font color="warning">#{stage}</font>\n
+    >Branch: <font color="warning">#{branch}</font>
+          MARKDOWN
         }
     }
     # message_with_app_name = "*[#{wxwork_config[:app_name]}]*: #{message}"
@@ -40,7 +41,7 @@ namespace :wxwork do
       request = Net::HTTP::Post.new uri.request_uri
       request.add_field('Content-Type', 'application/json')
       request.add_field('Accept', 'application/json')
-      request.body = payload.to_json
+      request.body = payload
       http.request request
     end
   end
@@ -58,5 +59,4 @@ namespace :wxwork do
 
     Rake::Task['wxwork:notify'].reenable
   end
-
 end
