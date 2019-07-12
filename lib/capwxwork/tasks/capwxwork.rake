@@ -11,10 +11,10 @@ namespace :wxwork do
 
     uri = URI(wxwork_config[:web_hook])
     payload = {
-      msgtype: 'markdown',
-      markdown:
+      'msgtype' => 'markdown',
+      'markdown' =>
         {
-          content: <<-MARKDOWN
+          'content' => <<-MARKDOWN
     <font color="info">#{message}</font>
     >App Name: <font color="warning">#{app_name}</font>
     >Environment: <font color="warning">#{stage}</font>
@@ -37,12 +37,13 @@ namespace :wxwork do
     # else
     #   payload[:text] = "#{message_with_app_name}. (branch *#{branch}* on *#{stage}*)"
     # end
-    Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
-      request = Net::HTTP::Post.new uri.request_uri
-      request.add_field('Content-Type', 'application/json')
-      request.add_field('Accept', 'application/json')
-      request.body = JSON.generate payload
-      http.request request
+    # Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+    #   request = Net::HTTP::Post.new uri.request_uri
+    #   request.add_field('Content-Type', 'application/json')
+    #   request.add_field('Accept', 'application/json')
+    #   request.body = JSON.generate payload
+    #   http.request request
+    Net::HTTP.post_form(uri, payload)
     end
   end
 
