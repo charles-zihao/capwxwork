@@ -15,9 +15,9 @@ namespace :wxwork do
       markdown:
         {
           content: <<-MARKDOWN
-  <font color="info">#{message}</font>\n
-    >App Name: <font color="warning">#{app_name}</font>\n
-    >Environment: <font color="warning">#{stage}</font>\n
+    <font color="info">#{message}</font>
+    >App Name: <font color="warning">#{app_name}</font>
+    >Environment: <font color="warning">#{stage}</font>
     >Branch: <font color="warning">#{branch}</font>
           MARKDOWN
         }
@@ -41,7 +41,7 @@ namespace :wxwork do
       request = Net::HTTP::Post.new uri.request_uri
       request.add_field('Content-Type', 'application/json')
       request.add_field('Accept', 'application/json')
-      request.body = payload.to_json
+      request.body = JSON.generate payload
       http.request request
     end
   end
