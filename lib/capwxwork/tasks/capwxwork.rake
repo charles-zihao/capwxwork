@@ -17,6 +17,7 @@ namespace :wxwork do
         {
           content: "#{app_name}:#{message}"
         }
+    }
     # message_with_app_name = "*[#{wxwork_config[:app_name]}]*: #{message}"
     #
     # if full_format
@@ -32,7 +33,6 @@ namespace :wxwork do
     # else
     #   payload[:text] = "#{message_with_app_name}. (branch *#{branch}* on *#{stage}*)"
     # end
-
     Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
       request = Net::HTTP::Post.new uri.request_uri
       request.add_field('Content-Type', 'application/json')
