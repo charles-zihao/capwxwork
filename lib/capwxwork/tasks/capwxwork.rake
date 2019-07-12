@@ -10,16 +10,17 @@ namespace :wxwork do
     wxwork_config = fetch(:wxwork_config)
 
     uri = URI(wxwork_config[:web_hook])
-    payload = {
-      'msgtype' => 'markdown',
-      'markdown' =>
-        {
-          'content' => <<-MARKDOWN
+    content = <<-MARKDOWN
     <font color="info">#{message}</font>
     >App Name: <font color="warning">#{app_name}</font>
     >Environment: <font color="warning">#{stage}</font>
     >Branch: <font color="warning">#{branch}</font>
-          MARKDOWN
+    MARKDOWN
+    payload = {
+      'msgtype' => 'markdown',
+      'markdown' =>
+        {
+          'content' => content.strip
         }
     }
     # message_with_app_name = "*[#{wxwork_config[:app_name]}]*: #{message}"
@@ -43,7 +44,7 @@ namespace :wxwork do
     #   request.add_field('Accept', 'application/json')
     #   request.body = JSON.generate payload
     #   http.request request
-    Net::HTTP.post_form(uri, payload)
+    Net::HTTP.post(uri, JSON.generate(payload), "Content-Type" => "application/json")
   end
 
   desc 'Send message to wxwork'
