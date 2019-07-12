@@ -15,7 +15,7 @@ namespace :wxwork do
       msgtype: 'text',
       text:
         {
-          content: "#{app_name}:#{message}"
+          content: "#{app_name}: #{message}(branch #{branch} on #{stage})"
         }
     }
     # message_with_app_name = "*[#{wxwork_config[:app_name]}]*: #{message}"
