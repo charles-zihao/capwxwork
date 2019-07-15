@@ -8,13 +8,14 @@ namespace :wxwork do
     branch = fetch(:branch)
     app_name = fetch(:application)
     wxwork_config = fetch(:wxwork_config)
-
+    time = Time.now.to_s
     uri = URI(wxwork_config[:web_hook])
     content = <<-MARKDOWN
     <font color="comment">#{message}</font>
     >App Name: <font color="info">#{app_name}</font>
     >Environment: <font color="info">#{stage}</font>
     >Branch: <font color="info">#{branch}</font>
+    >Time At: <font color="info">#{time}</font>
     MARKDOWN
     payload = {
       'msgtype' => 'markdown',
