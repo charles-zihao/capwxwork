@@ -32,6 +32,7 @@ namespace :wxwork do
       request.add_field('Accept', 'application/json')
       request.body = JSON.generate payload
       http.request request
+    end
   end
 
   desc 'Send message to wxwork'
