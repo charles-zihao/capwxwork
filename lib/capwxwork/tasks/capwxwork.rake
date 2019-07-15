@@ -23,28 +23,15 @@ namespace :wxwork do
           'content' => content.strip
         }
     }
-    # message_with_app_name = "*[#{wxwork_config[:app_name]}]*: #{message}"
-    #
-    # if full_format
-    #   payload[:fallback] = "#{message_with_app_name}. (branch *#{branch}* on *#{stage}*)"
-    #   payload[:color] = 'good'
-    #   payload[:pretext] = message_with_app_name
-    #   payload[:fields] = [
-    #     {title: 'App Name', value: wxwork_config[:app_name], short: true},
-    #     {title: 'Branch', value: branch, short: true},
-    #     {title: 'Environment', value: stage, short: true},
-    #     {title: 'Time At', value: Time.now.to_s, short: true}
-    #   ]
-    # else
-    #   payload[:text] = "#{message_with_app_name}. (branch *#{branch}* on *#{stage}*)"
-    # end
-    # Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
-    #   request = Net::HTTP::Post.new uri.request_uri
-    #   request.add_field('Content-Type', 'application/json')
-    #   request.add_field('Accept', 'application/json')
-    #   request.body = JSON.generate payload
-    #   http.request request
-    Net::HTTP.post(uri, JSON.generate(payload), "Content-Type" => "application/json")
+
+    # Net::HTTP.post(uri, JSON.generate(payload), "Content-Type" => "application/json")
+
+    Net::HTTP.start(uri.host, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+      request = Net::HTTP::Post.new uri.request_uri
+      request.add_field('Content-Type', 'application/json')
+      request.add_field('Accept', 'application/json')
+      request.body = JSON.generate payload
+      http.request request
   end
 
   desc 'Send message to wxwork'
